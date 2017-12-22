@@ -50,6 +50,7 @@ abstract class JsonResponse extends BaseJsonResponse
     {
         $this->fractal = new Manager();
         $this->fractal->setSerializer(new EmptyResourceKeyDataSerializer());
+
         return new Collection($data, $transformImplementation, 'data');
     }
 }

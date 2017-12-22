@@ -15,10 +15,6 @@ class UploadsResponse extends JsonResponse
     {
         $resource = $this->resource($data['data'], app(UploadsApiTransformer::class));
 
-        if (! empty($this->getIncludes())) {
-            $this->fractal->parseIncludes($this->getIncludes());
-        }
-
         if (!empty($data['meta'])) {
             $resource->setMeta($data['meta']);
         }

@@ -112,32 +112,5 @@ class UploadsRepository extends AbstractRepository
      */
     public function destroy(int $id)
     {
-        $this->model = Uploads::where('id', $id)->first();
-
-        if (empty($this->model)) {
-            return $this->resourceNotFound();
-        }
-
-        $productsUsingTaxes = $this->model->products()->get()->count();
-
-        if ($productsUsingTaxes) {
-            $data = [
-                'status_code' => Response::HTTP_LOCKED,
-                "message" => 'Can not delete the Tax. Tax with products associated'
-            ];
-
-            return $data;
-        }
-
-        $result = Uploads::destroy($id);
-
-        $data = [
-            'status_code' => Response::HTTP_OK,
-            'data' => $result
-        ];
-
-        $this->model->deleteItemsFromCache($id);
-
-        return $data;
     }
 }
