@@ -21,6 +21,9 @@ script:
 services:
   - mysql
 
+git:
+  submodules: false
+  
 cache:
   directories:
     - vendor
