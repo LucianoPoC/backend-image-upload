@@ -19,11 +19,12 @@ class UploadsTest extends TestCase
         'downloads',
         'views',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     /**
      * @param bool $title
+     *
      * @return \Illuminate\Foundation\Testing\TestResponse
      */
     private function callPostImage(bool $title = false, $parameters = []): \Illuminate\Foundation\Testing\TestResponse
@@ -31,10 +32,10 @@ class UploadsTest extends TestCase
         $response = $this->call(
             'POST',
             $this->endpoint,
-            $title ? ['title' => "The title here"] : $parameters,
+            $title ? ['title' => 'The title here'] : $parameters,
             [],
             [
-                'file' => $this->prepareFileUpload(__DIR__ . '/image.jpg'),
+                'file' => $this->prepareFileUpload(__DIR__.'/image.jpg'),
             ],
             []
         );
@@ -127,7 +128,7 @@ class UploadsTest extends TestCase
 
         $id = json_decode($responseInsert->getContent())->data[0]->id;
 
-        $response = $this->get($this->endpoint . $id);
+        $response = $this->get($this->endpoint.$id);
 
         $this->assertNotEmpty($response);
 
@@ -140,7 +141,7 @@ class UploadsTest extends TestCase
     {
         Uploads::destroy(1);
 
-        $response = $this->get($this->endpoint . 1);
+        $response = $this->get($this->endpoint. 1);
 
         $this->assertNotEmpty($response);
 
@@ -150,7 +151,7 @@ class UploadsTest extends TestCase
     public function testShouldIgnoreAttributesThatDoesNotMatchesWithEntity()
     {
         $response = $this->callPostImage(false, [
-           'foo' => 'bar'
+           'foo' => 'bar',
         ]);
 
         $response->assertStatus(201);
@@ -162,7 +163,7 @@ class UploadsTest extends TestCase
     {
         $responseInsert = $this->callPostImage();
 
-        $uri = $this->endpoint . json_decode($responseInsert->getContent())->data[0]->id . '/views';
+        $uri = $this->endpoint.json_decode($responseInsert->getContent())->data[0]->id.'/views';
 
         $response = $this->put($uri);
 
@@ -179,7 +180,7 @@ class UploadsTest extends TestCase
     {
         $responseInsert = $this->callPostImage();
 
-        $uri = $this->endpoint . json_decode($responseInsert->getContent())->data[0]->id . '/downloads';
+        $uri = $this->endpoint.json_decode($responseInsert->getContent())->data[0]->id.'/downloads';
 
         $response = $this->put($uri);
 

@@ -6,6 +6,7 @@ class DefaultResponse extends JsonResponse
 {
     /**
      * Handle the response to answer as specific implementation.
+     *
      * @param $data
      */
     public function handle($data)

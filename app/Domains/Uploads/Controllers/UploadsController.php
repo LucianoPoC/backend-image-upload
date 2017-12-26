@@ -3,9 +3,9 @@
 namespace App\Domains\Uploads\Controllers;
 
 use App\Core\Contracts\RepositoryInterface;
+use App\Core\Http\Controllers\Controller;
 use App\Domains\Uploads\Requests\UploadsRequest;
 use App\Domains\Uploads\Responses\UploadsResponse;
-use App\Core\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use LucianoJr\LaravelApiQueryHandler\CollectionHandler;
 
@@ -23,6 +23,7 @@ class UploadsController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -48,9 +49,11 @@ class UploadsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param int     $id
      * @param Request $request
+     *
      * @return \Illuminate\Http\Response
+     *
      * @internal param Products $product
      * @internal param int $id
      */
@@ -72,6 +75,7 @@ class UploadsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param UploadsRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(UploadsRequest $request)
@@ -85,7 +89,8 @@ class UploadsController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int $id
+     * @param int     $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -98,7 +103,8 @@ class UploadsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

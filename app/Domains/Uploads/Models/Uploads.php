@@ -15,8 +15,6 @@ class Uploads extends Model
 
     protected $attributes = [
         'downloads' => 0,
-        'views' => 0,
+        'views'     => 0,
     ];
-
-
 }

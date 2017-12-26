@@ -23,13 +23,14 @@ class UploadsRepository extends AbstractRepository
     /**
      * Get resource on database.
      *
-     * @param null $columns
+     * @param null     $columns
      * @param int|null $id
+     *
      * @return mixed
      */
     protected function getResource($columns = null, int $id = null)
     {
-        $singleItem = ! empty($id);
+        $singleItem = !empty($id);
 
         $data = $this->model->all();
 
@@ -44,7 +45,7 @@ class UploadsRepository extends AbstractRepository
 
         $this->data = [
             'status_code' => Response::HTTP_OK,
-            'data' => $data
+            'data'        => $data,
         ];
 
         return $this->data;
@@ -54,16 +55,17 @@ class UploadsRepository extends AbstractRepository
      * Store new resource.
      *
      * @param array $data
+     *
      * @return mixed
      */
     public function store(array $data)
     {
         /**
-         * @var $file \Illuminate\Http\UploadedFile
+         * @var \Illuminate\Http\UploadedFile
          */
         $file = $data['file'];
 
-        $fileName = time() . '.' . $file->getClientOriginalExtension();
+        $fileName = time().'.'.$file->getClientOriginalExtension();
 
         Storage::disk('s3')->put($fileName, file_get_contents($file));
 
@@ -79,7 +81,7 @@ class UploadsRepository extends AbstractRepository
 
         $data = [
             'status_code'   => Response::HTTP_CREATED,
-            'data'          => [$this->model]
+            'data'          => [$this->model],
         ];
 
         return $data;
@@ -89,7 +91,8 @@ class UploadsRepository extends AbstractRepository
      * Update resource.
      *
      * @param array $data
-     * @param int $id
+     * @param int   $id
+     *
      * @return mixed
      */
     public function update(array $data, int $id)
@@ -98,7 +101,7 @@ class UploadsRepository extends AbstractRepository
 
         $data = [
             'status_code'   => Response::HTTP_OK,
-            'data'          => [$this->model]
+            'data'          => [$this->model],
         ];
 
         return $data;
@@ -108,6 +111,7 @@ class UploadsRepository extends AbstractRepository
      * Remove a resource.
      *
      * @param int $id
+     *
      * @return mixed
      */
     public function destroy(int $id)

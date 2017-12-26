@@ -15,6 +15,7 @@ abstract class JsonResponse extends BaseJsonResponse
     protected $fractal;
 
     protected $includes;
+
     /**
      * Handle the response to answer as specific implementation.
      *
