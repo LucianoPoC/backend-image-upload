@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Domains\Uploads\Controllers;
 
 use App\Core\Contracts\RepositoryInterface;
@@ -30,7 +29,7 @@ class DownloadsCounterController extends Controller
 
         $resource = $data['data']->first();
 
-        $resource->downloads ++;
+        $resource->downloads++;
 
         $resource->save();
 

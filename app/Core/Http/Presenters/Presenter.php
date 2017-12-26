@@ -8,6 +8,7 @@ abstract class Presenter
      * @var mixed
      */
     protected $entity;
+
     /**
      * @param $entity
      */
@@ -15,10 +16,12 @@ abstract class Presenter
     {
         $this->entity = $entity;
     }
+
     /**
-     * Allow for property-style retrieval
+     * Allow for property-style retrieval.
      *
      * @param $property
+     *
      * @return mixed
      */
     public function __get($property)
@@ -26,6 +29,7 @@ abstract class Presenter
         if (method_exists($this, $property)) {
             return $this->{$property}();
         }
+
         return $this->entity->{$property};
     }
 
@@ -44,5 +48,4 @@ abstract class Presenter
     {
         $this->entity = $entity;
     }
-
 }

@@ -16,6 +16,7 @@ abstract class AbstractRepository implements RepositoryInterface
 
     /**
      * @param array $columns
+     *
      * @return mixed
      */
     public function all($columns = ['*'])
@@ -26,8 +27,9 @@ abstract class AbstractRepository implements RepositoryInterface
     /**
      * Get resource by id.
      *
-     * @param int $id
+     * @param int   $id
      * @param array $columns
+     *
      * @return mixed
      */
     public function find(int $id, $columns = ['*'])
@@ -44,8 +46,8 @@ abstract class AbstractRepository implements RepositoryInterface
     {
         $data = [
             'status_code' => Response::HTTP_NOT_FOUND,
-            'message' => "Resources not found",
-            'code' => ErrorCodeEnumeration::RESOURCE_NOT_FOUND
+            'message'     => 'Resources not found',
+            'code'        => ErrorCodeEnumeration::RESOURCE_NOT_FOUND,
         ];
 
         return $data;
@@ -54,8 +56,9 @@ abstract class AbstractRepository implements RepositoryInterface
     /**
      * Get resource on database.
      *
-     * @param null $columns
+     * @param null     $columns
      * @param int|null $id
+     *
      * @return mixed
      */
     abstract protected function getResource($columns = null, int $id = null);

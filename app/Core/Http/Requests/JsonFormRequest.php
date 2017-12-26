@@ -8,8 +8,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 class JsonFormRequest extends FormRequest
 {
-
-    public function __construct(array $query = array(), array $request = array(), array $attributes = array(), array $cookies = array(), array $files = array(), array $server = array(), $content = null)
+    public function __construct(array $query = [], array $request = [], array $attributes = [], array $cookies = [], array $files = [], array $server = [], $content = null)
     {
         parent::__construct($query, $request, $attributes, $cookies, $files, $server, $content);
 
@@ -19,18 +18,19 @@ class JsonFormRequest extends FormRequest
     /**
      * Handle a failed validation attempt.
      *
-     * @param  \Illuminate\Contracts\Validation\Validator  $validator
-     * @return void
+     * @param \Illuminate\Contracts\Validation\Validator $validator
      *
      * @throws \Illuminate\Validation\ValidationException
+     *
+     * @return void
      */
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
             'code'       => '422',
             'message'    => [
-                'errors' => $validator->errors()
-            ]
+                'errors' => $validator->errors(),
+            ],
         ])->setStatusCode(422));
     }
 

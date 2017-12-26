@@ -13,7 +13,6 @@ use Illuminate\Support\ServiceProvider;
 
 class UploadServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap any application services.
      *

@@ -15,6 +15,7 @@ abstract class JsonResponse extends BaseJsonResponse
     protected $fractal;
 
     protected $includes;
+
     /**
      * Handle the response to answer as specific implementation.
      *
@@ -50,6 +51,7 @@ abstract class JsonResponse extends BaseJsonResponse
     {
         $this->fractal = new Manager();
         $this->fractal->setSerializer(new EmptyResourceKeyDataSerializer());
+
         return new Collection($data, $transformImplementation, 'data');
     }
 }

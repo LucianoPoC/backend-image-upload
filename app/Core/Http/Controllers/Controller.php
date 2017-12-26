@@ -7,11 +7,11 @@ use App\Core\Http\Responses\ErrorResponse;
 use App\Core\Http\Responses\JsonResponse;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController
 {
@@ -26,7 +26,8 @@ class Controller extends BaseController
      * Make the response error.
      *
      * @param ErrorResponse $response
-     * @param array $data
+     * @param array         $data
+     *
      * @return ErrorResponse
      */
     protected function errorResponse(ErrorResponse $response, array $data)
@@ -81,9 +82,10 @@ class Controller extends BaseController
     }
 
     /**
-     * Normalize data
+     * Normalize data.
      *
      * @param Model|Collection $data
+     *
      * @return Model|Collection
      */
     private function normalizeData($data)
@@ -102,6 +104,7 @@ class Controller extends BaseController
      * Returns true if current operation is delete.
      *
      * @param $data
+     *
      * @return bool
      */
     private function isDeleteResponse($data)
@@ -113,7 +116,7 @@ class Controller extends BaseController
     {
         return [
             'status_code' => Response::HTTP_NOT_IMPLEMENTED,
-            'message' => Response::$statusTexts[Response::HTTP_NOT_IMPLEMENTED],
+            'message'     => Response::$statusTexts[Response::HTTP_NOT_IMPLEMENTED],
         ];
     }
 }
