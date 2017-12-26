@@ -36,7 +36,7 @@ class UploadsRequest extends JsonFormRequest
 
         return [
             'title' => 'sometimes | required',
-            'file'  => 'required | mimes:jpeg,jpg,png | max:2000'
+            'file'  => 'required | mimes:jpeg,jpg,png | max:2000',
         ];
     }
 }

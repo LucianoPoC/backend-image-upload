@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Domains\Uploads\Controllers;
 
 use App\Core\Contracts\RepositoryInterface;
@@ -30,7 +29,7 @@ class ViewsCounterController extends Controller
 
         $resource = $data['data']->first();
 
-        $resource->views ++;
+        $resource->views++;
 
         $resource->save();
 

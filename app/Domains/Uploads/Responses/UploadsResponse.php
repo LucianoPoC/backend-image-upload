@@ -9,13 +9,14 @@ class UploadsResponse extends JsonResponse
 {
     /**
      * Handle the response to answer as specific implementation.
+     *
      * @param $data
      */
     public function handle($data)
     {
         $resource = $this->resource($data['data'], app(UploadsApiTransformer::class));
 
-        if (! empty($this->getIncludes())) {
+        if (!empty($this->getIncludes())) {
             $this->fractal->parseIncludes($this->getIncludes());
         }
 

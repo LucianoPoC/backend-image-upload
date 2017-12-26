@@ -8,20 +8,20 @@ use App\Domains\Uploads\Models\Uploads;
 class UploadsApiTransformer extends BaseTransformer
 {
     /**
-     * Mapper of conversion between presenters
+     * Mapper of conversion between presenters.
      */
     protected $conversionMapper = [
         'id',
         'title',
         'link',
         'downloads' => [
-            'type' => 'integer'
+            'type' => 'integer',
         ],
         'views' => [
-            'type' => 'integer'
+            'type' => 'integer',
         ],
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     public function transform(Uploads $taxes)
@@ -35,6 +35,7 @@ class UploadsApiTransformer extends BaseTransformer
 
     /**
      * @param array $data
+     *
      * @return array
      */
     public function remodel(array $data)

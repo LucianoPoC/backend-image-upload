@@ -30,7 +30,8 @@ class ErrorResponse extends Response
     /**
      * Set the content on the response.
      *
-     * @param  mixed $content
+     * @param mixed $content
+     *
      * @return $this
      */
     public function setContent($content)

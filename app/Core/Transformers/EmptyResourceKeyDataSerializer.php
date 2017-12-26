@@ -20,6 +20,7 @@ class EmptyResourceKeyDataSerializer extends ArraySerializer
         if ($resourceKey) {
             return [$resourceKey => $data];
         }
+
         return $data;
     }
 }

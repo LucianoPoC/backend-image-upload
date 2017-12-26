@@ -8,12 +8,12 @@ use League\Fractal\TransformerAbstract;
 class BaseTransformer extends TransformerAbstract
 {
     /**
-     * Mapper of conversion between presenters
+     * Mapper of conversion between presenters.
      */
     protected $conversionMapper;
 
     /**
-     * Object with item converted
+     * Object with item converted.
      */
     protected $convertedItem;
 
@@ -23,6 +23,7 @@ class BaseTransformer extends TransformerAbstract
             if (!isset($data[$to])) {
                 return false;
             }
+
             return $this->convertedItem[$to] = !empty($data[$to]) ? $data[$to] : null;
         }
 
@@ -39,6 +40,7 @@ class BaseTransformer extends TransformerAbstract
 
     /**
      * @param $from
+     *
      * @return bool
      */
     protected function fieldHasTheSameTitle($from)
@@ -49,6 +51,7 @@ class BaseTransformer extends TransformerAbstract
     /**
      * @param $to
      * @param $from
+     *
      * @return array
      */
     protected function flipNames($to, $from)
@@ -80,12 +83,14 @@ class BaseTransformer extends TransformerAbstract
      * @param $data
      * @param $from
      * @param $to
-     * @return mixed
+     *
      * @throws \Exception
+     *
+     * @return mixed
      */
     protected function typecast($data, $from, $to)
     {
-        if (! isset($to['name'])) {
+        if (!isset($to['name'])) {
             $to['name'] = $from;
         }
 
@@ -110,6 +115,7 @@ class BaseTransformer extends TransformerAbstract
                 throw new \Exception('The type of field to convert is invalid');
                 break;
         }
+
         return $this->convertedItem[$to['name']];
     }
 }

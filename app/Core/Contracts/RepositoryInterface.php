@@ -10,6 +10,7 @@ interface RepositoryInterface
      * Get a resource list.
      *
      * @param array $columns
+     *
      * @return mixed
      */
     public function all($columns = ['*']);
@@ -17,8 +18,9 @@ interface RepositoryInterface
     /**
      * Get a single resource.
      *
-     * @param int $id
+     * @param int   $id
      * @param array $columns
+     *
      * @return mixed
      */
     public function find(int $id, $columns = ['*']);
@@ -27,6 +29,7 @@ interface RepositoryInterface
      * Store new resource.
      *
      * @param array $data
+     *
      * @return mixed
      */
     public function store(array $data);
@@ -35,7 +38,8 @@ interface RepositoryInterface
      * Update resource.
      *
      * @param array $data
-     * @param int $id
+     * @param int   $id
+     *
      * @return mixed
      */
     public function update(array $data, int $id);
@@ -44,6 +48,7 @@ interface RepositoryInterface
      * Remove a resource.
      *
      * @param int $id
+     *
      * @return mixed
      */
     public function destroy(int $id);
@@ -59,6 +64,7 @@ interface RepositoryInterface
      * Set the model resource.
      *
      * @param $model
+     *
      * @return mixed
      */
     public function setModel(Model $model);
