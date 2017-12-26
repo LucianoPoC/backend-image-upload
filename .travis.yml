@@ -14,9 +14,6 @@ before_script:
 script:
   - vendor/bin/phpunit
 
-script:
-  - phpdbg -qrr vendor/bin/phpunit --coverage-clover=coverage.xml
-
 services:
   - mysql
 
