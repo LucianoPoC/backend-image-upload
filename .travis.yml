@@ -6,7 +6,6 @@ php:
 before_script:
   - phpenv config-rm xdebug.ini
   - cp .env.travis .env
-  - mysql -e 'create database travis;'
   - composer self-update
   - composer install --no-interaction
   - php artisan key:generate
@@ -23,7 +22,7 @@ services:
 
 git:
   submodules: false
-  
+
 cache:
   directories:
     - vendor
