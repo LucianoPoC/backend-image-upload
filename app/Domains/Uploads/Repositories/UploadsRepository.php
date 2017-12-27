@@ -67,7 +67,7 @@ class UploadsRepository extends AbstractRepository
 
         $fileName = time().'.'.$file->getClientOriginalExtension();
 
-        Storage::disk('s3')->put($fileName, file_get_contents($file));
+        Storage::put($fileName, file_get_contents($file));
 
         $this->model = new Uploads();
 
