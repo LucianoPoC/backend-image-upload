@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Route;
-
 Route::domain('api.'.Config::get('app.url'))->group(function () {
     Route::resource(
         'v1/uploads',
