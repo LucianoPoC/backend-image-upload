@@ -1,28 +1,41 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import ImageTile from "./ImageTile";
-import ReactPaginate from 'react-paginate';
+import ImageTile from './ImageTile';
+import Pagination from 'react-js-pagination';
+import { Row, Col } from 'react-flexbox-grid';
+import {FormGroup, Form, Button, FormControl} from 'react-bootstrap';
 
 export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            uploadTitle: '',
-            uploadFile: '',
             items: '',
-            pageCount: 9
+            pageCount: 9,
+            meta: '',
+            uri: 'http://api.app.local/v1/uploads',
+            current_page: 1
         };
 
-        this.handleChangeTitle = this.handleChangeTitle.bind(this);
+        this.fetchData = this.fetchData.bind(this);
+        this.incrementViews = this.incrementViews.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
     componentDidMount() {
-        let uri = 'http://api.app.local/v1/uploads?limit=9&order_by=id,desc';
-        axios.get(uri)
+        this.fetchData();
+    }
+
+    fetchData(page = 1) {
+        axios.get(this.state.uri + '?page=' + page)
             .then((response) => {
                 this.setState({
-                    items: response.data.data
+                    items: response.data.data,
+                    meta: response.data.meta
+                });
+
+                this.setState({
+                    current_page: page
                 });
             })
             .catch((error) => {
@@ -30,102 +43,128 @@ export default class App extends Component {
             });
     }
 
+    incrementViews(id) {
+        axios.put('http://api.app.local/v1/uploads/' + id + '/views/').then(() => {
+            this.fetchData(this.state.current_page)
+        });
+    }
+
     render() {
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-8 col-md-offset-2">
-                        <div className="panel panel-default">
-                            <div className="panel-heading">Image Gallery</div>
-                            <form onSubmit={this.handleSubmit} encType="multipart/form-data">
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <div className="form-group">
-                                            <label>Title:</label>
-                                            <input type="text" className="form-control" onChange={this.handleChangeTitle} />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <div className="form-group">
-                                            <label>File:</label>
-                                            <input id="file" type="file" className="form-control col-md-6" onChange={this.handleChangeFile} />
-                                        </div>
-                                    </div>
-                                </div><br />
-                                <div className="form-group">
-                                    <button className="btn btn-primary">Upload</button>
-                                </div>
-                            </form>
+            <div>
+                <Row center="xs">
+                    <Col xs={12} md={4}>
+                        <div className="panel">
+                            <div className="panel-heading"><h1>Image Gallery</h1></div>
+                            <Row center="xs">
+                                <Col xs={12}>
+                                    <Form id="form-upload" onSubmit={this.handleSubmit} encType="multipart/form-data">
+                                        <Row center="xs">
+                                            <Col xs={12}>
+                                                <FormGroup>
+                                                    <FormControl id="title" type="text" placeholder="Title" />
+                                                </FormGroup>
+                                                <FormGroup>
+                                                    <FormControl id="file" type="file" />
+                                                </FormGroup>
+                                                <br />
+                                                <FormGroup>
+                                                    <Button bsStyle="primary" bsSize="large" block onClick={this.handleSubmit}>Upload</Button>
+                                                </FormGroup>
+                                            </Col>
+                                        </Row>
+                                    </Form>
+                                </Col>
+                            </Row>
                         </div>
-                    </div>
-                </div>
+                    </Col>
+                </Row>
+
                 <hr />
+
+                <div className="grid-items">
+
                 { this.renderItems() }
 
-                <ReactPaginate previousLabel={"previous"}
-                               nextLabel={"next"}
-                               breakLabel={<a href="">...</a>}
-                               breakClassName={"break-me"}
-                               pageCount={this.state.pageCount}
-                               marginPagesDisplayed={2}
-                               pageRangeDisplayed={3}
-                               onPageChange={this.handlePageClick}
-                               containerClassName={"pagination"}
-                               subContainerClassName={"pages pagination"}
-                               activeClassName={"active"} />
+                </div>
+                <Row>
+                    <Col xs={12} sm={10} md={6} lg={4}>
+                        <Row center>
+                            <Col xs={6}>
+                                <Pagination
+                                    activePage={this.state.current_page}
+                                    itemsCountPerPage={this.state.meta.per_page}
+                                    totalItemsCount={this.state.meta.total}
+                                    pageRangeDisplayed={5}
+                                    onChange={this.fetchData}
+                                />
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
             </div>
         );
     }
 
-    handlePageClick() {
-
-    }
-
     renderItems() {
-        if (this.state.items instanceof Array){
-            return this.state.items.map(function(object, i) {
-                return  <div className="col-md-4">
-                            <ImageTile
-                                key={i}
-                                title={object.title}
-                                image={object.link}
-                                downloads={object.downloads}
-                                views={object.views}
-                            />
-                        </div>
-            })
+        if (this.state.items instanceof Array === false) {
+            return <h1>There is no images to show.</h1>
         }
-    }
 
-    handleChangeTitle(e) {
-        this.setState({
-            uploadTitle: e.target.value
+        return this.state.items.map((object, i) => {
+            return (
+                    <ImageTile
+                        key={i}
+                        id={object.id}
+                        title={object.title}
+                        link={object.link}
+                        downloads={object.downloads}
+                        views={object.views}
+                        onViewHandler={this.incrementViews}
+                    />
+            )
         })
     }
 
     handleSubmit(e) {
         e.preventDefault();
 
+        let file = document.getElementById('file').files[0];
+
+        if (file === undefined) {
+            return alert('The file field is required');
+        }
+
         let data = new FormData();
-        data.append('title', this.state.uploadTitle);
-        data.append('file', document.getElementById('file').files[0]);
+        data.append('title', document.getElementById('title').value);
+        data.append('file', file);
 
         const config = {
             headers: { 'content-type': 'multipart/form-data' }
         };
-        const uri = 'http://api.app.local/v1/uploads';
 
-
-
-        axios.post(uri, data, config)
+        axios.post(this.state.uri, data, config)
             .then((response) => {
-                console.log(response);
+                this.fetchData();
+
+                alert('Image successfully uploaded');
             })
-            .catch((error) => {
-                console.error(error);
-            });
+            .catch((err) => {
+                switch (err.response.status) {
+                    case 422:
+                        alert(err.response.data.message.errors.file.reduce(
+                            (preval, element) => preval + '\n' + element, '')
+                        );
+                        break;
+                    case 500:
+                        alert('Internal server error');
+                        break;
+                    default:
+                        alert('Error');
+                        break;
+                }
+            })
+            .then(() => document.getElementById('form-upload').reset());
     }
 }
 

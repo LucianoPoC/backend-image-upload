@@ -21,7 +21,12 @@
         "react-dom": "^15.4.2"
     },
     "dependencies": {
+        "react-bootstrap": "^0.31.5",
         "react-flexbox-grid": "^2.0.0",
-        "react-paginate": "^5.0.0"
+        "react-fontawesome": "^1.6.1",
+        "react-images": "^0.5.13",
+        "react-js-pagination": "^3.0.0",
+        "react-transition-group": "^2.2.1",
+        "simple-react-modal": "^0.5.1"
     }
 }
