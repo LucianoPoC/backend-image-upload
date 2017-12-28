@@ -22,7 +22,8 @@ class Uploads extends Model
     /**
      * Get the link to file.
      *
-     * @param  string  $value
+     * @param string $value
+     *
      * @return string
      */
     public function getLinkAttribute($value)

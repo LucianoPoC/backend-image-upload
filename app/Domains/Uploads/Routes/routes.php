@@ -20,6 +20,4 @@ Route::domain('api.'.Config::get('app.url'))->group(function () {
         'v1/uploads/{upload}/downloads',
         'App\Domains\Uploads\Controllers\DownloadsCounterController@update'
     )->middleware('api');
-
-
 });

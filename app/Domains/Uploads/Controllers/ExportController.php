@@ -12,8 +12,8 @@ class ExportController extends Controller
     {
         $items = Uploads::all();
 
-        Excel::create('uploads', function($excel) use ($items) {
-            $excel->sheet('ExportFile', function($sheet) use ($items) {
+        Excel::create('uploads', function ($excel) use ($items) {
+            $excel->sheet('ExportFile', function ($sheet) use ($items) {
                 $sheet->fromArray($items);
             });
         })->download('csv');
