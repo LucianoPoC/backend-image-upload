@@ -73,6 +73,7 @@ class UploadsRepository extends AbstractRepository
 
         $this->model->link = $fileName;
 
+        $this->model->title = null;
         if (!empty($data['title'])) {
             $this->model->title = $data['title'];
         }

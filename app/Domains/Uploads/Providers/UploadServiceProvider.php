@@ -4,6 +4,7 @@ namespace App\Domains\Uploads\Providers;
 
 use App\Core\Contracts\RepositoryInterface;
 use App\Domains\Uploads\Controllers\DownloadsCounterController;
+use App\Domains\Uploads\Controllers\ExportController;
 use App\Domains\Uploads\Controllers\UploadsController;
 use App\Domains\Uploads\Controllers\ViewsCounterController;
 use App\Domains\Uploads\Repositories\UploadsRepository;
