@@ -1,6 +1,11 @@
 <?php
 
 Route::domain('api.'.Config::get('app.url'))->group(function () {
+    Route::get(
+        'v1/uploads/export',
+        'App\Domains\Uploads\Controllers\ExportController@index'
+    )->middleware('api');
+
     Route::resource(
         'v1/uploads',
         \App\Domains\Uploads\Controllers\UploadsController::class

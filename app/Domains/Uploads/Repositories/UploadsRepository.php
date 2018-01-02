@@ -67,12 +67,13 @@ class UploadsRepository extends AbstractRepository
 
         $fileName = time().'.'.$file->getClientOriginalExtension();
 
-        Storage::disk('s3')->put($fileName, file_get_contents($file));
+        Storage::put($fileName, file_get_contents($file));
 
         $this->model = new Uploads();
 
         $this->model->link = $fileName;
 
+        $this->model->title = null;
         if (!empty($data['title'])) {
             $this->model->title = $data['title'];
         }

@@ -11,11 +11,22 @@
     },
     "devDependencies": {
         "axios": "^0.17",
+        "babel-preset-react": "^6.23.0",
         "bootstrap-sass": "^3.3.7",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
-        "vue": "^2.5.7"
+        "react": "^15.4.2",
+        "react-dom": "^15.4.2"
+    },
+    "dependencies": {
+        "react-bootstrap": "^0.31.5",
+        "react-flexbox-grid": "^2.0.0",
+        "react-fontawesome": "^1.6.1",
+        "react-images": "^0.5.13",
+        "react-js-pagination": "^3.0.0",
+        "react-transition-group": "^2.2.1",
+        "simple-react-modal": "^0.5.1"
     }
 }

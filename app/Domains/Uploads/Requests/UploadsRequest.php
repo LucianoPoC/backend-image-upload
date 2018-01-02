@@ -35,8 +35,7 @@ class UploadsRequest extends JsonFormRequest
         }
 
         return [
-            'title' => 'sometimes | required',
-            'file'  => 'required | mimes:jpeg,jpg,png | max:2000',
+            'file'  => 'required|mimes:jpeg,bmp,png|max:10000|dimensions:max_width=1000,max_height=1000',
         ];
     }
 }
