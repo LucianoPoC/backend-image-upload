@@ -13,7 +13,7 @@ export default class App extends Component {
             items: '',
             pageCount: 9,
             meta: '',
-            uri: 'http://api.app.local/v1/uploads',
+            uri: 'http://api.app.local/v1/uploads/',
             current_page: 1
         };
 
@@ -46,13 +46,15 @@ export default class App extends Component {
     }
 
     incrementViews(id) {
-        axios.put('http://api.app.local/v1/uploads/' + id + '/views/').then(() => {
+
+
+        axios.put(this.state.uri + id + '/views/').then(() => {
             this.fetchData(this.state.current_page)
         });
     }
 
     incrementDownloads(id) {
-        axios.put('http://api.app.local/v1/uploads/' + id + '/downloads/').then(() => {
+        axios.put(this.state.uri + id + '/downloads/').then(() => {
             this.fetchData(this.state.current_page)
         });
     }
@@ -131,7 +133,7 @@ export default class App extends Component {
         return (
             <Row center="xs">
                 <Col xs={12}>
-                    <a download href="http://api.app.local/v1/uploads/export"><Button bsStyle="primary" bsSize="large">Export</Button></a>
+                    <a download href={this.state.uri + "export"} ><Button bsStyle="primary" bsSize="large">Export</Button></a>
                 </Col>
             </Row>
         )
