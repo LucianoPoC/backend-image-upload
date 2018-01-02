@@ -22,6 +22,13 @@ class UploadsTest extends TestCase
         'updated_at',
     ];
 
+    public function __construct($name = null, array $data = [], $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+
+        $this->endpoint = env('ENDPOINT_UPLOADS', 'http://api.app.local/v1/uploads/');
+    }
+
     /**
      * @param bool $title
      *
