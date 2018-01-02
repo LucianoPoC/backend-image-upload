@@ -49214,7 +49214,7 @@ var App = function (_Component) {
             items: '',
             pageCount: 9,
             meta: '',
-            uri: 'http://api.app.local/v1/uploads',
+            uri: 'http://api.app.local/v1/uploads/',
             current_page: 1
         };
 
@@ -49256,7 +49256,7 @@ var App = function (_Component) {
         value: function incrementViews(id) {
             var _this3 = this;
 
-            axios.put('http://api.app.local/v1/uploads/' + id + '/views/').then(function () {
+            axios.put(this.state.uri + id + '/views/').then(function () {
                 _this3.fetchData(_this3.state.current_page);
             });
         }
@@ -49265,7 +49265,7 @@ var App = function (_Component) {
         value: function incrementDownloads(id) {
             var _this4 = this;
 
-            axios.put('http://api.app.local/v1/uploads/' + id + '/downloads/').then(function () {
+            axios.put(this.state.uri + id + '/downloads/').then(function () {
                 _this4.fetchData(_this4.state.current_page);
             });
         }
@@ -49338,6 +49338,12 @@ var App = function (_Component) {
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'grid-items' },
+                    this.renderItems()
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_4_react_flexbox_grid__["Row"],
                     { center: 'xs' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -49361,27 +49367,31 @@ var App = function (_Component) {
                     )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
+                this.renderExportButton()
+            );
+        }
+    }, {
+        key: 'renderExportButton',
+        value: function renderExportButton() {
+            if (this.state.items instanceof Array === false) {
+                return false;
+            }
+
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_4_react_flexbox_grid__["Row"],
+                { center: 'xs' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_4_react_flexbox_grid__["Row"],
-                    { center: 'xs' },
+                    __WEBPACK_IMPORTED_MODULE_4_react_flexbox_grid__["Col"],
+                    { xs: 12 },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        __WEBPACK_IMPORTED_MODULE_4_react_flexbox_grid__["Col"],
-                        { xs: 12 },
+                        'a',
+                        { download: true, href: this.state.uri + "export" },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'a',
-                            { download: true, href: 'http://api.app.local/v1/uploads/export' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                __WEBPACK_IMPORTED_MODULE_5_react_bootstrap__["a" /* Button */],
-                                { bsStyle: 'primary', bsSize: 'large' },
-                                'Export'
-                            )
+                            __WEBPACK_IMPORTED_MODULE_5_react_bootstrap__["a" /* Button */],
+                            { bsStyle: 'primary', bsSize: 'large' },
+                            'Export'
                         )
                     )
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'grid-items' },
-                    this.renderItems()
                 )
             );
         }
@@ -61303,10 +61313,90 @@ var ImageTile = function (_PureComponent) {
     _createClass(ImageTile, [{
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: 'cell' },
-                'XXX'
+                { className: 'card' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h4',
+                    { className: 'card-title' },
+                    this.props.title
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', {
+                    id: this.props.id,
+                    src: this.props.link,
+                    alt: this.props.title,
+                    className: 'card-image',
+                    onClick: function onClick() {
+                        _this2.showImage(_this2.props.id);
+                        _this2.props.onViewHandler(_this2.props.id);
+                    }
+                }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'card-body' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'card-option' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'a',
+                            {
+                                onClick: function onClick() {
+                                    _this2.props.onDownloadHandler(_this2.props.id);
+                                },
+                                download: true,
+                                href: this.props.link
+                            },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-download' }),
+                            'Download'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'span',
+                            null,
+                            'Downloads: ',
+                            this.props.downloads
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'card-option' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'a',
+                            {
+                                href: 'javascript:void(0);',
+                                className: 'view-image-anchor',
+                                onClick: function onClick() {
+                                    _this2.showImage(_this2.props.id);
+                                    _this2.props.onViewHandler(_this2.props.id);
+                                }
+                            },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-eye' }),
+                            'Show image'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'span',
+                            null,
+                            'Views: ',
+                            this.props.views
+                        )
+                    )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { id: 'myModal', className: 'modal' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'span',
+                            { className: 'close' },
+                            '\xD7'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'modal-content', id: 'img01' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'caption' })
+                    )
+                )
             );
         }
     }, {
