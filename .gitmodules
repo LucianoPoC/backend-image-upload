@@ -1,0 +1,3 @@
+[submodule "docker-image-upload"]
+	path = docker-image-upload
+	url = https://github.com/luciano-jr/docker-image-upload.git
