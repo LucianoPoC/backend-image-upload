@@ -90,6 +90,14 @@ export default class App extends Component {
 
                 <hr />
 
+                <div className="grid-items">
+
+                    { this.renderItems() }
+
+                </div>
+
+                <hr />
+
                 <Row center="xs">
                     <Col xs>
                         <Row>
@@ -108,19 +116,25 @@ export default class App extends Component {
 
                 <hr />
 
-                <Row center="xs">
-                    <Col xs={12}>
-                        <a download href="http://api.app.local/v1/uploads/export"><Button bsStyle="primary" bsSize="large">Export</Button></a>
-                    </Col>
-                </Row>
+                { this.renderExportButton() }
 
-                <div className="grid-items">
 
-                    { this.renderItems() }
-
-                </div>
             </div>
         );
+    }
+
+    renderExportButton() {
+        if (this.state.items instanceof Array === false) {
+            return false
+        }
+
+        return (
+            <Row center="xs">
+                <Col xs={12}>
+                    <a download href="http://api.app.local/v1/uploads/export"><Button bsStyle="primary" bsSize="large">Export</Button></a>
+                </Col>
+            </Row>
+        )
     }
 
     renderItems() {
