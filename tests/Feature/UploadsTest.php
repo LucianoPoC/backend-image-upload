@@ -11,7 +11,7 @@ class UploadsTest extends TestCase
 {
     use DatabaseTransactions;
 
-    private $endpoint = 'http://api.app.local/v1/uploads/';
+    private $endpoint = 'http://app.local/api/v1/uploads/';
 
     private $imageResponseEntity = [
         'link',
@@ -26,7 +26,7 @@ class UploadsTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
 
-        $this->endpoint = env('ENDPOINT_UPLOADS', 'http://api.app.local/v1/uploads/');
+        $this->endpoint = env('ENDPOINT_UPLOADS', 'http://app.local/api/v1/uploads/');
     }
 
     /**
