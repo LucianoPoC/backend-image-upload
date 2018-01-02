@@ -190,6 +190,9 @@ export default class App extends Component {
                             (preval, element) => preval + '\n' + element, '')
                         );
                         break;
+                    case 413:
+                        alert('Request Entity Too Large');
+                        break;
                     case 500:
                         alert('Internal server error');
                         break;
