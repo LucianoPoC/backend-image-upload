@@ -13,7 +13,7 @@ export default class App extends Component {
             items: '',
             pageCount: 9,
             meta: '',
-            uri: 'http://api.app.local/v1/uploads/',
+            uri: 'http://api.cct-image-upload.tk/v1/uploads/',
             current_page: 1
         };
 
