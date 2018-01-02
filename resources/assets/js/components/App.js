@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import ImageTile from './ImageTile';
 import Pagination from 'react-js-pagination';
 import { Row, Col } from 'react-flexbox-grid';
-import {FormGroup, Form, Button, FormControl} from 'react-bootstrap';
+import { FormGroup, Form, Button, FormControl } from 'react-bootstrap';
 
 export default class App extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             items: '',
             pageCount: 9,
@@ -18,6 +19,7 @@ export default class App extends Component {
 
         this.fetchData = this.fetchData.bind(this);
         this.incrementViews = this.incrementViews.bind(this);
+        this.incrementDownloads = this.incrementDownloads.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
     }
@@ -45,6 +47,12 @@ export default class App extends Component {
 
     incrementViews(id) {
         axios.put('http://api.app.local/v1/uploads/' + id + '/views/').then(() => {
+            this.fetchData(this.state.current_page)
+        });
+    }
+
+    incrementDownloads(id) {
+        axios.put('http://api.app.local/v1/uploads/' + id + '/downloads/').then(() => {
             this.fetchData(this.state.current_page)
         });
     }
@@ -82,15 +90,10 @@ export default class App extends Component {
 
                 <hr />
 
-                <div className="grid-items">
-
-                { this.renderItems() }
-
-                </div>
-                <Row>
-                    <Col xs={12} sm={10} md={6} lg={4}>
-                        <Row center>
-                            <Col xs={6}>
+                <Row center="xs">
+                    <Col xs>
+                        <Row>
+                            <Col xs={12}>
                                 <Pagination
                                     activePage={this.state.current_page}
                                     itemsCountPerPage={this.state.meta.per_page}
@@ -102,6 +105,20 @@ export default class App extends Component {
                         </Row>
                     </Col>
                 </Row>
+
+                <hr />
+
+                <Row center="xs">
+                    <Col xs={12}>
+                        <a download href="http://api.app.local/v1/uploads/export"><Button bsStyle="primary" bsSize="large">Export</Button></a>
+                    </Col>
+                </Row>
+
+                <div className="grid-items">
+
+                    { this.renderItems() }
+
+                </div>
             </div>
         );
     }
@@ -113,15 +130,16 @@ export default class App extends Component {
 
         return this.state.items.map((object, i) => {
             return (
-                    <ImageTile
-                        key={i}
-                        id={object.id}
-                        title={object.title}
-                        link={object.link}
-                        downloads={object.downloads}
-                        views={object.views}
-                        onViewHandler={this.incrementViews}
-                    />
+                <ImageTile
+                    key={i}
+                    id={object.id}
+                    title={object.title}
+                    link={object.link}
+                    downloads={object.downloads}
+                    views={object.views}
+                    onViewHandler={this.incrementViews}
+                    onDownloadHandler={this.incrementDownloads}
+                />
             )
         })
     }

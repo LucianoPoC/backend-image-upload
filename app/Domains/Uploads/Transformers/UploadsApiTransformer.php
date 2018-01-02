@@ -24,10 +24,10 @@ class UploadsApiTransformer extends BaseTransformer
         'updated_at',
     ];
 
-    public function transform(Uploads $taxes)
+    public function transform(Uploads $uploads)
     {
         foreach ($this->conversionMapper as $from => $to) {
-            $this->convert($taxes->toArray(), $from, $to);
+            $this->convert($uploads->toArray(), $from, $to);
         }
 
         return $this->convertedItem;

@@ -49220,6 +49220,7 @@ var App = function (_Component) {
 
         _this.fetchData = _this.fetchData.bind(_this);
         _this.incrementViews = _this.incrementViews.bind(_this);
+        _this.incrementDownloads = _this.incrementDownloads.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
 
         return _this;
@@ -49257,6 +49258,15 @@ var App = function (_Component) {
 
             axios.put('http://api.app.local/v1/uploads/' + id + '/views/').then(function () {
                 _this3.fetchData(_this3.state.current_page);
+            });
+        }
+    }, {
+        key: 'incrementDownloads',
+        value: function incrementDownloads(id) {
+            var _this4 = this;
+
+            axios.put('http://api.app.local/v1/uploads/' + id + '/downloads/').then(function () {
+                _this4.fetchData(_this4.state.current_page);
             });
         }
     }, {
@@ -49328,22 +49338,17 @@ var App = function (_Component) {
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'grid-items' },
-                    this.renderItems()
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_4_react_flexbox_grid__["Row"],
-                    null,
+                    { center: 'xs' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         __WEBPACK_IMPORTED_MODULE_4_react_flexbox_grid__["Col"],
-                        { xs: 12, sm: 10, md: 6, lg: 4 },
+                        { xs: true },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             __WEBPACK_IMPORTED_MODULE_4_react_flexbox_grid__["Row"],
-                            { center: true },
+                            null,
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 __WEBPACK_IMPORTED_MODULE_4_react_flexbox_grid__["Col"],
-                                { xs: 6 },
+                                { xs: 12 },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_react_js_pagination___default.a, {
                                     activePage: this.state.current_page,
                                     itemsCountPerPage: this.state.meta.per_page,
@@ -49354,13 +49359,36 @@ var App = function (_Component) {
                             )
                         )
                     )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_4_react_flexbox_grid__["Row"],
+                    { center: 'xs' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        __WEBPACK_IMPORTED_MODULE_4_react_flexbox_grid__["Col"],
+                        { xs: 12 },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'a',
+                            { download: true, href: 'http://api.app.local/v1/uploads/export' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                __WEBPACK_IMPORTED_MODULE_5_react_bootstrap__["a" /* Button */],
+                                { bsStyle: 'primary', bsSize: 'large' },
+                                'Export'
+                            )
+                        )
+                    )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'grid-items' },
+                    this.renderItems()
                 )
             );
         }
     }, {
         key: 'renderItems',
         value: function renderItems() {
-            var _this4 = this;
+            var _this5 = this;
 
             if (this.state.items instanceof Array === false) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -49378,14 +49406,15 @@ var App = function (_Component) {
                     link: object.link,
                     downloads: object.downloads,
                     views: object.views,
-                    onViewHandler: _this4.incrementViews
+                    onViewHandler: _this5.incrementViews,
+                    onDownloadHandler: _this5.incrementDownloads
                 });
             });
         }
     }, {
         key: 'handleSubmit',
         value: function handleSubmit(e) {
-            var _this5 = this;
+            var _this6 = this;
 
             e.preventDefault();
 
@@ -49404,7 +49433,7 @@ var App = function (_Component) {
             };
 
             axios.post(this.state.uri, data, config).then(function (response) {
-                _this5.fetchData();
+                _this6.fetchData();
 
                 alert('Image successfully uploaded');
             }).catch(function (err) {
@@ -61265,64 +61294,42 @@ var ImageTile = function (_PureComponent) {
     function ImageTile(props) {
         _classCallCheck(this, ImageTile);
 
-        return _possibleConstructorReturn(this, (ImageTile.__proto__ || Object.getPrototypeOf(ImageTile)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (ImageTile.__proto__ || Object.getPrototypeOf(ImageTile)).call(this, props));
+
+        _this.showImage = _this.showImage.bind(_this);
+        return _this;
     }
 
     _createClass(ImageTile, [{
         key: 'render',
         value: function render() {
-            var _this2 = this;
-
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: 'card', onClick: function onClick() {
-                        _this2.props.onViewHandler(_this2.props.id);
-                    } },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'h4',
-                    { className: 'card-title' },
-                    this.props.title
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: this.props.link, alt: this.props.title, className: 'card-image' }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'card-body' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'card-option' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'a',
-                            { onClick: function onClick() {
-                                    return false;
-                                }, download: true, href: this.props.link },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-download' }),
-                            ' Download'
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'span',
-                            null,
-                            'Downloads: ',
-                            this.props.downloads
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'card-option' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'a',
-                            { href: this.props.link },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-eye' }),
-                            ' Show image'
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'span',
-                            null,
-                            'Views: ',
-                            this.props.views
-                        )
-                    )
-                )
+                { className: 'cell' },
+                'XXX'
             );
+        }
+    }, {
+        key: 'showImage',
+        value: function showImage(id) {
+            // Get the modal
+            var modal = document.getElementById('myModal');
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var image = document.getElementById(id);
+            var modalImage = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            modal.style.display = "block";
+            modalImage.src = image.src;
+            captionText.innerHTML = image.alt;
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            };
         }
     }]);
 
@@ -61338,7 +61345,8 @@ ImageTile.propTypes = {
     link: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string.isRequired,
     downloads: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number.isRequired,
     views: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number.isRequired,
-    onViewHandler: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func.isRequired
+    onViewHandler: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func.isRequired,
+    onDownloadHandler: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func.isRequired
 };
 
 /***/ }),
