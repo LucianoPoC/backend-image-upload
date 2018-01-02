@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1072639e5bdbe36a3b46c637f81f805a",
+    "content-hash": "9fc422549385bf84651b42b7a463759b",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -1179,16 +1179,16 @@
         },
         {
             "name": "luciano-jr/laravel-api-query-handler",
-            "version": "1.0.4",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/luciano-jr/Laravel-API-query-handler.git",
-                "reference": "ab15a6d74ba0f41e98e9f5cd30c06497f00afeec"
+                "reference": "5e36aa1108fd6eaff197199efcefd31a800141cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/luciano-jr/Laravel-API-query-handler/zipball/ab15a6d74ba0f41e98e9f5cd30c06497f00afeec",
-                "reference": "ab15a6d74ba0f41e98e9f5cd30c06497f00afeec",
+                "url": "https://api.github.com/repos/luciano-jr/Laravel-API-query-handler/zipball/5e36aa1108fd6eaff197199efcefd31a800141cc",
+                "reference": "5e36aa1108fd6eaff197199efcefd31a800141cc",
                 "shasum": ""
             },
             "require": {
@@ -1233,7 +1233,7 @@
                 "laravel",
                 "query handler"
             ],
-            "time": "2017-10-16T20:31:40+00:00"
+            "time": "2018-01-02T20:45:48+00:00"
         },
         {
             "name": "maatwebsite/excel",
@@ -4985,7 +4985,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "luciano-jr/laravel-api-query-handler": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

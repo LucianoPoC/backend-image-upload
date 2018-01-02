@@ -9,46 +9,48 @@ export default class ImageTile extends PureComponent {
 
     render() {
         return (
-            <div className="card">
-                <h4 className="card-title">{this.props.title}</h4>
-                <img
-                    id={this.props.id}
-                    src={this.props.link}
-                    alt={this.props.title}
-                    className="card-image"
-                    onClick={() => {
-                        this.showImage(this.props.id);
-                        this.props.onViewHandler(this.props.id);
-                    }}
-                />
-                <div className="card-body">
-                    <div className="card-option">
-                        <a
-                            onClick={() => {
-                                this.props.onDownloadHandler(this.props.id);
-                            }}
-                            download
-                            href={this.props.link}
-                        ><i className="fa fa-download" />Download</a>
-                        <span>Downloads: {this.props.downloads}</span>
+            <div className="child">
+                <div className="card">
+                    <h4 className="card-title">{this.props.title}</h4>
+                    <img
+                        id={this.props.id}
+                        src={this.props.link}
+                        alt={this.props.title}
+                        className="card-image"
+                        onClick={() => {
+                            this.showImage(this.props.id);
+                            this.props.onViewHandler(this.props.id);
+                        }}
+                    />
+                    <div className="card-body">
+                        <div className="card-option">
+                            <a
+                                onClick={() => {
+                                    this.props.onDownloadHandler(this.props.id);
+                                }}
+                                download
+                                href={this.props.link}
+                            ><i className="fa fa-download" />Download</a>
+                            <span>Downloads: {this.props.downloads}</span>
+                        </div>
+                        <div className="card-option">
+                            <a
+                                href="javascript:void(0);"
+                                className="view-image-anchor"
+                                onClick={() => {
+                                    this.showImage(this.props.id);
+                                    this.props.onViewHandler(this.props.id);
+                                }}
+                            ><i className="fa fa-eye" />Show image</a>
+                            <span>Views: {this.props.views}</span>
+                        </div>
                     </div>
-                    <div className="card-option">
-                        <a
-                            href="javascript:void(0);"
-                            className="view-image-anchor"
-                            onClick={() => {
-                                this.showImage(this.props.id);
-                                this.props.onViewHandler(this.props.id);
-                            }}
-                        ><i className="fa fa-eye" />Show image</a>
-                        <span>Views: {this.props.views}</span>
-                    </div>
-                </div>
-                <div>
-                    <div id="myModal" className="modal">
-                        <span className="close">&times;</span>
-                        <img className="modal-content" id="img01" />
-                        <div id="caption" />
+                    <div>
+                        <div id="myModal" className="modal">
+                            <span className="close">&times;</span>
+                            <img className="modal-content" id="img01" />
+                            <div id="caption" />
+                        </div>
                     </div>
                 </div>
             </div>
